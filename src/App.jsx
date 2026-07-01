@@ -636,24 +636,63 @@ function NextBar({ onClick, disabled, label }) {
   );
 }
 
-function FlavorGroup({ title, items, builderFlavorId, setBuilderFlavorId, icon }) {
+function FlavorGroup({ title, items, builderFlavorId, setBuilderFlavorId, icon, variant }) {
   if (items.length === 0) return null;
+
+  const variants = {
+    featured: {
+      containerBg: "linear-gradient(135deg, #3A2E0E, #241C0A)",
+      containerBorder: COLORS.gold,
+      glow: "0 0 0 1px " + COLORS.gold + "55, 0 4px 20px " + COLORS.gold + "33",
+      headerColor: COLORS.gold,
+      pillBorderIdle: COLORS.gold,
+      pillBgIdle: "#3A2E0E",
+      pillTextIdle: COLORS.gold,
+    },
+    core: {
+      containerBg: COLORS.panel,
+      containerBorder: COLORS.blue,
+      glow: "none",
+      headerColor: COLORS.blue,
+      pillBorderIdle: "#3A4650",
+      pillBgIdle: COLORS.panelLight,
+      pillTextIdle: COLORS.cream,
+    },
+    seasonal: {
+      containerBg: COLORS.panel,
+      containerBorder: COLORS.orange,
+      glow: "none",
+      headerColor: COLORS.orange,
+      pillBorderIdle: "#4A3521",
+      pillBgIdle: COLORS.panelLight,
+      pillTextIdle: COLORS.cream,
+    },
+  };
+  const v = variants[variant] || variants.core;
+
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 20, fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: COLORS.muted, marginBottom: 6 }}>
+    <div style={{
+      marginBottom: 14, padding: variant === "featured" ? 14 : 12, borderRadius: 12,
+      background: v.containerBg, border: `1px solid ${v.containerBorder}55`, boxShadow: v.glow,
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: variant === "featured" ? 21 : 19, fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: v.headerColor, marginBottom: 8 }}>
         {icon} {title}
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {items.map((f) => (
-          <button key={f.id} onClick={() => setBuilderFlavorId(f.id)} style={{
-            padding: "8px 14px", borderRadius: 20, fontSize: 22, fontWeight: 700,
-            border: builderFlavorId === f.id ? `1px solid ${COLORS.gold}` : "1px solid #332C1C",
-            background: builderFlavorId === f.id ? COLORS.gold : COLORS.panelLight,
-            color: builderFlavorId === f.id ? "#050303" : COLORS.cream,
-          }}>
-            {f.name}
-          </button>
-        ))}
+        {items.map((f) => {
+          const selected = builderFlavorId === f.id;
+          return (
+            <button key={f.id} onClick={() => setBuilderFlavorId(f.id)} style={{
+              padding: variant === "featured" ? "10px 18px" : "8px 14px", borderRadius: 20,
+              fontSize: variant === "featured" ? 23 : 22, fontWeight: 700,
+              border: selected ? `2px solid ${COLORS.gold}` : `1px solid ${v.pillBorderIdle}`,
+              background: selected ? COLORS.gold : v.pillBgIdle,
+              color: selected ? "#050303" : v.pillTextIdle,
+            }}>
+              {variant === "featured" && !selected ? "✨ " : ""}{f.name}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -821,9 +860,9 @@ function OrderFlow(props) {
 
             <div style={{ fontSize: 21, fontWeight: 700, color: COLORS.muted, marginBottom: 6 }}>Flavor</div>
             {loadingData && <div style={{ color: COLORS.muted, fontSize: 22 }}>Loading flavors…</div>}
-            <FlavorGroup title="Featured" items={featuredFlavors} builderFlavorId={builderFlavorId} setBuilderFlavorId={setBuilderFlavorId} icon={<Sparkles size={16} />} />
-            <FlavorGroup title="Our Core Six" items={coreFlavors} builderFlavorId={builderFlavorId} setBuilderFlavorId={setBuilderFlavorId} icon={<Hexagon size={16} />} />
-            <FlavorGroup title="Seasonal Rotation" items={seasonalFlavors} builderFlavorId={builderFlavorId} setBuilderFlavorId={setBuilderFlavorId} icon={<Sparkles size={16} />} />
+            <FlavorGroup title="Featured This Week" items={featuredFlavors} builderFlavorId={builderFlavorId} setBuilderFlavorId={setBuilderFlavorId} icon={<Sparkles size={18} />} variant="featured" />
+            <FlavorGroup title="Our Core Six" items={coreFlavors} builderFlavorId={builderFlavorId} setBuilderFlavorId={setBuilderFlavorId} icon={<Hexagon size={16} />} variant="core" />
+            <FlavorGroup title="Seasonal Rotation" items={seasonalFlavors} builderFlavorId={builderFlavorId} setBuilderFlavorId={setBuilderFlavorId} icon={<Sparkles size={16} />} variant="seasonal" />
             {builderSize === "halfgallon" && builderFlavor && (
               <div style={{ fontSize: 21, color: COLORS.muted, marginTop: 4 }}>
                 {builderFlavor.name === PLAIN_FLAVOR_NAME ? "Plain raw honey — $50" : "Infused — $60"}
