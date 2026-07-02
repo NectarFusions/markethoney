@@ -5,6 +5,7 @@ import {
   Sparkles, Info, X, Hexagon, PartyPopper, ShoppingBasket
 } from "lucide-react";
 import { supabase } from "./supabaseClient";
+import logoImg from "./assets/logo-nf.png";
 
 const FONTS = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -12,15 +13,15 @@ const FONTS = `
 
 // ---- Brand ----
 const COLORS = {
-  bg: "#050303",
-  panel: "#1A170F",
-  panelLight: "#252014",
+  bg: "#FFF8EC",
+  panel: "#FFFFFF",
+  panelLight: "#F7F0DE",
   gold: "#F0C848",
   blue: "#48A0E0",
   orange: "#E88038",
   red: "#E85038",
-  cream: "#FFFFFF",
-  muted: "#C7C2B6",
+  cream: "#050303",
+  muted: "#6B6255",
 };
 
 // ---- Sizes & pricing ----
@@ -514,12 +515,15 @@ export default function App() {
       `}</style>
 
       {/* Header */}
-      <div style={{ background: `linear-gradient(180deg, ${COLORS.panel}, ${COLORS.bg})`, borderBottom: `1px solid #332C1C`, padding: "22px 20px" }}>
+      <div style={{ background: `linear-gradient(180deg, ${COLORS.panel}, ${COLORS.bg})`, borderBottom: `1px solid #E8DFC8`, padding: "18px 20px" }}>
         <div style={{ maxWidth: 500, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div>
-            <div style={{ ...display, fontWeight: 700, fontSize: 38, letterSpacing: "0.02em", color: COLORS.cream }}>NectarFusions</div>
-            <div style={{ fontSize: 20, letterSpacing: "0.1em", color: COLORS.gold, marginTop: 2, textTransform: "uppercase" }}>
-              Nature's Happiness <span style={{ color: COLORS.muted }}>|</span> Honey Infused
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <img src={logoImg} alt="NectarFusions logo" style={{ height: 56, width: 56, objectFit: "contain", flexShrink: 0 }} />
+            <div>
+              <div style={{ ...display, fontWeight: 700, fontSize: 38, letterSpacing: "0.02em", color: COLORS.cream, lineHeight: 1 }}>NectarFusions</div>
+              <div style={{ fontSize: 18, letterSpacing: "0.1em", color: COLORS.gold, marginTop: 4, textTransform: "uppercase" }}>
+                Nature's Happiness <span style={{ color: COLORS.muted }}>|</span> Honey Infused
+              </div>
             </div>
           </div>
           <button onClick={() => setView(view === "order" ? "admin" : "order")}
@@ -574,18 +578,18 @@ const primaryBtnStyle = {
   padding: "17px 20px", fontWeight: 800, fontSize: 25,
 };
 const secondaryBtnStyle = {
-  background: "transparent", color: COLORS.cream, border: `1px solid #4A4128`, borderRadius: 10,
+  background: "transparent", color: COLORS.cream, border: `1px solid #D8CDB4`, borderRadius: 10,
   padding: "15px 18px", fontWeight: 700, fontSize: 24,
 };
 const qtyBtnStyle = {
-  width: 44, height: 44, borderRadius: "50%", border: `1px solid #4A4128`,
+  width: 44, height: 44, borderRadius: "50%", border: `1px solid #D8CDB4`,
   background: COLORS.panelLight, color: COLORS.cream, display: "flex", alignItems: "center", justifyContent: "center",
 };
 const inputStyle = {
-  width: "100%", padding: "14px 15px", borderRadius: 8, border: `2px solid #4A4128`,
+  width: "100%", padding: "14px 15px", borderRadius: 8, border: `2px solid #D8CDB4`,
   fontSize: 20, background: "#FFFFFF", color: "#050303",
 };
-const cardStyle = { background: COLORS.panel, borderRadius: 12, padding: 18, border: "1px solid #332C1C" };
+const cardStyle = { background: COLORS.panel, borderRadius: 12, padding: 18, border: "1px solid #E8DFC8" };
 
 function StepDots({ step, total = 5 }) {
   return (
@@ -593,7 +597,7 @@ function StepDots({ step, total = 5 }) {
       {Array.from({ length: total }).map((_, i) => (
         <div key={i} style={{
           width: i + 1 === step ? 22 : 8, height: 8, borderRadius: 4,
-          background: i + 1 <= step ? COLORS.gold : "#332C1C", transition: "all 0.2s",
+          background: i + 1 <= step ? COLORS.gold : "#E8DFC8", transition: "all 0.2s",
         }} />
       ))}
     </div>
@@ -611,7 +615,7 @@ function Field({ label, children }) {
 
 function EmptyNote({ text }) {
   return (
-    <div style={{ background: "#00000022", borderRadius: 10, padding: 16, fontSize: 22, color: COLORS.muted, textAlign: "center" }}>
+    <div style={{ background: "#EFE6D0", borderRadius: 10, padding: 16, fontSize: 22, color: COLORS.muted, textAlign: "center" }}>
       {text}
     </div>
   );
@@ -641,20 +645,20 @@ function FlavorGroup({ title, items, builderFlavorId, setBuilderFlavorId, icon, 
 
   const variants = {
     featured: {
-      containerBg: "linear-gradient(135deg, #3A2E0E, #241C0A)",
+      containerBg: "linear-gradient(135deg, #FFF3D2, #FFE9AF)",
       containerBorder: COLORS.gold,
-      glow: "0 0 0 1px " + COLORS.gold + "55, 0 4px 20px " + COLORS.gold + "33",
-      headerColor: COLORS.gold,
+      glow: "0 0 0 1px " + COLORS.gold + "88, 0 4px 16px " + COLORS.gold + "44",
+      headerColor: "#8A6A10",
       pillBorderIdle: COLORS.gold,
-      pillBgIdle: "#3A2E0E",
-      pillTextIdle: COLORS.gold,
+      pillBgIdle: "#FFFFFF",
+      pillTextIdle: "#8A6A10",
     },
     core: {
       containerBg: COLORS.panel,
       containerBorder: COLORS.blue,
       glow: "none",
-      headerColor: COLORS.blue,
-      pillBorderIdle: "#3A4650",
+      headerColor: "#2E6FA0",
+      pillBorderIdle: "#CFE3F2",
       pillBgIdle: COLORS.panelLight,
       pillTextIdle: COLORS.cream,
     },
@@ -662,8 +666,8 @@ function FlavorGroup({ title, items, builderFlavorId, setBuilderFlavorId, icon, 
       containerBg: COLORS.panel,
       containerBorder: COLORS.orange,
       glow: "none",
-      headerColor: COLORS.orange,
-      pillBorderIdle: "#4A3521",
+      headerColor: "#A05A1E",
+      pillBorderIdle: "#F0D6B8",
       pillBgIdle: COLORS.panelLight,
       pillTextIdle: COLORS.cream,
     },
@@ -801,7 +805,7 @@ function OrderFlow(props) {
         </Field>
 
         {eventError && (
-          <div style={{ display: "flex", gap: 8, background: "#3a1a14", color: "#ffb4a3", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 6 }}>
+          <div style={{ display: "flex", gap: 8, background: "#FDEDEA", color: "#8A2F1F", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 6 }}>
             <AlertCircle size={20} style={{ flexShrink: 0, marginTop: 1 }} /> {eventError}
           </div>
         )}
@@ -828,8 +832,8 @@ function OrderFlow(props) {
               {SIZES.map((s) => (
                 <button key={s.id} onClick={() => setBuilderSize(s.id)} style={{
                   padding: "10px 8px", borderRadius: 8, textAlign: "left",
-                  border: builderSize === s.id ? `1px solid ${COLORS.gold}` : "1px solid #332C1C",
-                  background: builderSize === s.id ? "#332912" : COLORS.panelLight,
+                  border: builderSize === s.id ? `1px solid ${COLORS.gold}` : "1px solid #E8DFC8",
+                  background: builderSize === s.id ? "#FFF3D2" : COLORS.panelLight,
                 }}>
                   <div style={{ fontWeight: 700, fontSize: 22 }}>{s.label}</div>
                   <div style={{ fontSize: 20, color: COLORS.muted, marginTop: 2 }}>
@@ -850,8 +854,8 @@ function OrderFlow(props) {
               {HONEY_TYPES.map((t) => (
                 <button key={t.id} onClick={() => setBuilderType(t.id)} style={{
                   flex: 1, padding: "10px 8px", borderRadius: 8, fontSize: 22, fontWeight: 700,
-                  border: builderType === t.id ? `1px solid ${COLORS.gold}` : "1px solid #332C1C",
-                  background: builderType === t.id ? "#332912" : COLORS.panelLight, color: COLORS.cream,
+                  border: builderType === t.id ? `1px solid ${COLORS.gold}` : "1px solid #E8DFC8",
+                  background: builderType === t.id ? "#FFF3D2" : COLORS.panelLight, color: COLORS.cream,
                 }}>
                   {t.label}
                 </button>
@@ -921,7 +925,7 @@ function OrderFlow(props) {
           {markets.map((m) => (
             <button key={m.id} onClick={() => { setSelectedMarketId(m.id); setSelectedSlot(null); }} style={{
               ...cardStyle, display: "block", width: "100%", textAlign: "left", marginBottom: 10,
-              border: selectedMarketId === m.id ? `1px solid ${COLORS.gold}` : "1px solid #332C1C",
+              border: selectedMarketId === m.id ? `1px solid ${COLORS.gold}` : "1px solid #E8DFC8",
             }}>
               <div style={{ ...display, fontWeight: 700, fontSize: 28 }}>{m.name}</div>
               <div style={{ fontSize: 22, color: COLORS.muted, display: "flex", alignItems: "center", gap: 6, marginTop: 4 }}>
@@ -949,9 +953,9 @@ function OrderFlow(props) {
               return (
                 <button key={slot} disabled={full} onClick={() => setSelectedSlot(slot)} style={{
                   padding: "12px 8px", borderRadius: 8,
-                  border: selectedSlot === slot ? `1px solid ${COLORS.gold}` : "1px solid #332C1C",
+                  border: selectedSlot === slot ? `1px solid ${COLORS.gold}` : "1px solid #E8DFC8",
                   background: full ? "#00000030" : selectedSlot === slot ? COLORS.gold : COLORS.panelLight,
-                  color: full ? "#8A8377" : selectedSlot === slot ? "#050303" : COLORS.cream,
+                  color: full ? "#A79C89" : selectedSlot === slot ? "#050303" : COLORS.cream,
                   opacity: full ? 0.6 : 1,
                 }}>
                   <div style={{ fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
@@ -978,7 +982,7 @@ function OrderFlow(props) {
             {cart.map((i) => <div key={i.lineId} style={{ fontSize: 24, marginBottom: 2 }}>{i.qty}× {i.sizeLabel} {i.flavorName} ({i.honeyType === "spun" ? "Spun" : "Regular"})</div>)}
             <div style={{ fontSize: 20, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", color: COLORS.muted, marginTop: 10, marginBottom: 4 }}>Pickup</div>
             <div style={{ fontSize: 24 }}>{selectedMarket.name}, {fmtDate(selectedMarket.date)} at {fmtTime(selectedSlot)}</div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid #332C1C", fontWeight: 800 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid #E8DFC8", fontWeight: 800 }}>
               <span>Total (pay at pickup)</span><span style={{ color: COLORS.gold }}>${cartTotal.toFixed(2)}</span>
             </div>
           </div>
@@ -992,7 +996,7 @@ function OrderFlow(props) {
           <Field label="Notes (optional)"><textarea style={{ ...inputStyle, minHeight: 60, resize: "vertical" }} value={customer.notes} onChange={(e) => setCustomer({ ...customer, notes: e.target.value })} /></Field>
 
           {errorMsg && (
-            <div style={{ display: "flex", gap: 8, background: "#3a1a14", color: "#ffb4a3", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 6 }}>
+            <div style={{ display: "flex", gap: 8, background: "#FDEDEA", color: "#8A2F1F", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 6 }}>
               <AlertCircle size={20} style={{ flexShrink: 0, marginTop: 1 }} /> {errorMsg}
             </div>
           )}
@@ -1016,7 +1020,7 @@ function OrderFlow(props) {
             {confirmedOrder.marketAddress && <div style={{ color: COLORS.muted }}>{confirmedOrder.marketAddress}</div>}
             <div style={{ fontSize: 20, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", color: COLORS.muted, marginTop: 12, marginBottom: 4 }}>Order</div>
             {confirmedOrder.items.map((i) => <div key={i.lineId}>{i.qty}× {i.sizeLabel} {i.flavorName} ({i.honeyType === "spun" ? "Spun" : "Regular"})</div>)}
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid #332C1C", fontWeight: 800 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 10, paddingTop: 10, borderTop: "1px solid #E8DFC8", fontWeight: 800 }}>
               <span>Due at pickup</span><span style={{ color: COLORS.gold }}>${confirmedOrder.total.toFixed(2)}</span>
             </div>
           </div>
@@ -1076,7 +1080,7 @@ function TabButton({ active, onClick, icon, label }) {
     <button onClick={onClick} style={{
       flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
       padding: "10px 4px", borderRadius: 8, border: "none", fontWeight: 700, fontSize: 21,
-      background: active ? COLORS.gold : "#252014", color: active ? "#050303" : COLORS.cream,
+      background: active ? COLORS.gold : "#F0E7D0", color: active ? "#050303" : COLORS.cream,
     }}>
       {icon} {label}
     </button>
@@ -1131,7 +1135,7 @@ function AdminPanel(props) {
               <Field label="Orders per slot"><input type="number" min="1" style={inputStyle} value={newMarket.capacityPerSlot} onChange={(e) => setNewMarket({ ...newMarket, capacityPerSlot: e.target.value })} /></Field>
             </div>
             <button onClick={addMarket} disabled={addingMarket} style={{ ...primaryBtnStyle, width: "100%", marginTop: 4, opacity: addingMarket ? 0.6 : 1 }}>{addingMarket ? "Adding…" : "Add market"}</button>
-            {marketError && <div style={{ display: "flex", gap: 8, background: "#3a1a14", color: "#ffb4a3", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 8 }}><AlertCircle size={20} /> {marketError}</div>}
+            {marketError && <div style={{ display: "flex", gap: 8, background: "#FDEDEA", color: "#8A2F1F", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 8 }}><AlertCircle size={20} /> {marketError}</div>}
           </div>
           <div style={eyebrow}>Upcoming markets</div>
           <div style={{ marginTop: 8 }}>
@@ -1163,8 +1167,8 @@ function AdminPanel(props) {
                 {["core", "seasonal"].map((c) => (
                   <button key={c} onClick={() => setNewFlavor({ ...newFlavor, category: c })} style={{
                     flex: 1, padding: "8px 0", borderRadius: 8, fontSize: 22, fontWeight: 700, textTransform: "capitalize",
-                    border: newFlavor.category === c ? `1px solid ${COLORS.gold}` : "1px solid #332C1C",
-                    background: newFlavor.category === c ? "#332912" : COLORS.panelLight, color: COLORS.cream,
+                    border: newFlavor.category === c ? `1px solid ${COLORS.gold}` : "1px solid #E8DFC8",
+                    background: newFlavor.category === c ? "#FFF3D2" : COLORS.panelLight, color: COLORS.cream,
                   }}>{c}</button>
                 ))}
               </div>
@@ -1174,7 +1178,7 @@ function AdminPanel(props) {
               Feature this flavor at the top for customers
             </label>
             <button onClick={addFlavor} disabled={addingFlavor} style={{ ...primaryBtnStyle, width: "100%", opacity: addingFlavor ? 0.6 : 1 }}>{addingFlavor ? "Adding…" : "Add flavor"}</button>
-            {flavorError && <div style={{ display: "flex", gap: 8, background: "#3a1a14", color: "#ffb4a3", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 8 }}><AlertCircle size={20} /> {flavorError}</div>}
+            {flavorError && <div style={{ display: "flex", gap: 8, background: "#FDEDEA", color: "#8A2F1F", padding: 10, borderRadius: 8, fontSize: 22, marginTop: 8 }}><AlertCircle size={20} /> {flavorError}</div>}
           </div>
 
           <div style={eyebrow}>All flavors</div>
@@ -1188,11 +1192,11 @@ function AdminPanel(props) {
               <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
                 <button onClick={() => toggleFlavorField(f, "featured")} style={{
                   fontSize: 20, fontWeight: 700, padding: "5px 10px", borderRadius: 20, border: "none",
-                  background: f.featured ? COLORS.gold : "#332C1C", color: f.featured ? "#050303" : COLORS.muted,
+                  background: f.featured ? COLORS.gold : "#E8DFC8", color: f.featured ? "#050303" : COLORS.muted,
                 }}>Featured</button>
                 <button onClick={() => toggleFlavorField(f, "active")} style={{
                   fontSize: 20, fontWeight: 700, padding: "5px 10px", borderRadius: 20, border: "none",
-                  background: f.active ? COLORS.blue : "#332C1C", color: f.active ? "#050303" : COLORS.muted,
+                  background: f.active ? COLORS.blue : "#E8DFC8", color: f.active ? "#050303" : COLORS.muted,
                 }}>Active</button>
                 <button onClick={() => deleteFlavor(f.id)} style={{ background: "none", border: "none", color: COLORS.red, padding: 4 }}><Trash2 size={18} /></button>
               </div>
@@ -1221,7 +1225,7 @@ function AdminPanel(props) {
                 {o.notes && <div style={{ fontSize: 21, marginTop: 4, fontStyle: "italic", color: COLORS.muted }}>"{o.notes}"</div>}
                 <button onClick={() => togglePickedUp(o)} style={{
                   marginTop: 8, fontSize: 21, fontWeight: 700, padding: "6px 12px", borderRadius: 20, border: "none",
-                  background: o.pickedUp ? "#332C1C" : COLORS.blue, color: o.pickedUp ? COLORS.muted : "#050303",
+                  background: o.pickedUp ? "#E8DFC8" : COLORS.blue, color: o.pickedUp ? COLORS.muted : "#050303",
                 }}>{o.pickedUp ? "Picked up ✓" : "Mark picked up"}</button>
               </div>
             ))}
@@ -1251,7 +1255,7 @@ function AdminPanel(props) {
                   {["new", "contacted", "quoted", "booked"].map((s) => (
                     <button key={s} onClick={() => setEventStatus(r, s)} style={{
                       fontSize: 20, fontWeight: 700, padding: "5px 10px", borderRadius: 20, border: "none", textTransform: "capitalize",
-                      background: r.status === s ? COLORS.orange : "#332C1C", color: r.status === s ? "#050303" : COLORS.muted,
+                      background: r.status === s ? COLORS.orange : "#E8DFC8", color: r.status === s ? "#050303" : COLORS.muted,
                     }}>{s}</button>
                   ))}
                 </div>
